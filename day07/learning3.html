@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一个固定位置的列表消息盒子</title>
+    <style type="text/css">
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        .box-info {
+            width:450px;
+            height:450px;
+            position: fixed;
+            top: 0;
+        }
+
+        .fake-content {
+            background:darkred;
+            height:2000px;
+            margin-left:470px;
+            padding:10px;
+            color:#ffffff;
+        }
+
+        .box-info ul {
+            list-style-type: none;
+            margin-top:20px;
+        }
+
+        .box-info li {
+            float:left;
+            display:inline-block;
+            width:150px;
+        }
+
+        .box-info li a {
+            display:inline-block;
+            text-decoration:none;
+            color:#000000;
+            line-height:3;
+            width:100%;
+            background-color:red;
+            text-align:center;
+        }
+
+        .box-info li a:hover,.box-info li a:active {
+            background-color:darkred;
+            color:#ffffff;
+        }
+
+        .box-info li a.active {
+            background-color:darkred;
+            color:#ffffff;
+        }
+
+        .box-info .panels {
+            clear:both;
+            height:392px;
+            position:relative;
+        }
+
+        .box-info .panels article {
+            background-color:darkred;
+            padding:10px;
+            color:#ffffff;
+            position:absolute;
+            height:392px;
+            top:0;
+            left:0;
+
+        }
+
+        .box-info .panels article.active-panel {
+            z-index:1;
+        }
+
+        .box-info .panels article h2{
+            line-height:3;
+        }
+
+
+    </style>
+</head>
+<body>
+<section class="box-info">
+    <ul>
+        <li><a href="#" class="active">Tab 1</a></li>
+        <li><a href="#">Tab 2</a></li>
+        <li><a href="#">Tab 3</a></li>
+    </ul>
+    <div class="panels">
+        <article class="active-panel">
+            <h2>The first tab</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Pellentesque turpis nibh, porttitor nec venenatis eu,
+                pulvinar in augue. Vestibulum et orci scelerisque, vulputate tellus quis,
+                lobortis dui. Vivamus varius libero at ipsum mattis efficitur ut nec nisl.
+                Nullam eget tincidunt metus. Donec ultrices, urna maximus consequat aliquet,
+                dui neque eleifend lorem, a auctor libero turpis at sem. Aliquam ut porttitor urna.
+                Nulla facilisi.
+            </p>
+        </article>
+        <article>
+            <h2>The second tab</h2>
+            <p>
+                This tab hasn't got any Lorem Ipsum in it.
+                But the content isn't very exciting all the same.
+            </p>
+        </article>
+        <article>
+            <h2>The third tab</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Pellentesque turpis nibh, porttitor nec venenatis eu,
+                pulvinar in augue. And now an ordered list: how exciting!
+            </p>
+            <ol>
+                <li>dui neque eleifend lorem, a auctor libero turpis at sem.</li>
+                <li>Aliquam ut porttitor urna.</li>
+                <li>Nulla facilisi</li>
+            </ol>
+        </article>
+    </div>
+</section>
+<section class="fake-content">
+    <h1>Fake content</h1>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+    <p>This is fake content. Your main web page contents would probably go here.</p>
+</section>
+</body>
+<script type="text/javascript">
+  var tabs = document.querySelectorAll(".box-info li a");
+  var contents = document.querySelectorAll(".box-info .panels article");
+
+  for(var i=0; i<tabs.length; i++){
+    var tab = tabs[i];
+    setTabHeader(tab,i);
+  }
+
+  function setTabHeader(tab,index){
+    tab.onclick = function(){
+
+      for(var i=0; i<tabs.length; i++){
+        if(tabs[i].getAttribute('class')){
+          tabs[i].removeAttribute('class');
+        }
+      }
+
+      tab.setAttribute('class','active');
+
+      for(var i=0; i<contents.length; i++){
+        if(contents[i].getAttribute('class')){
+          contents[i].removeAttribute('class');
+        }
+      }
+
+      contents[index].setAttribute('class','active-panel');
+
+    }
+  }
+
+
+
+</script>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ife任务图</title>
+    <style type="text/css">
+        * {
+            margin:0;
+            padding:0;
+        }
+
+        .ife li{
+            list-style-type: none;
+        }
+
+        .ife .header {
+            background-color:#333333;
+            height:50px;
+        }
+
+        .ife .header header {
+            width:960px;
+            margin:0 auto;
+            color:#ffffff;
+            position:relative;
+        }
+
+        .ife .header header .logo {
+            display:inline-block;
+            line-height:50px;
+        }
+
+        .ife .header header nav {
+            position:absolute;
+            right:0;
+            display:inline-block;
+        }
+
+        .ife .header header nav a {
+            color:#ffffff;
+            display:inline-block;
+        }
+
+        .ife .banner {
+            height:140px;
+            background-color:#66bb33;
+        }
+
+        .ife .banner section {
+            width:960px;
+            margin:0 auto;
+            position:relative;
+        }
+
+        .ife .banner section ol {
+            position:absolute;
+            right:0;
+            top:90px;
+        }
+
+        .ife .banner section li {
+            display:inline-block;
+            text-align:center;
+            line-height:28px;
+            width:20px;
+            height:28px;
+            border:1px solid #000000;
+            background:#ffffff;
+            opacity:0.6;
+        }
+
+        .ife .banner section li:nth-child(2) {
+            padding-top:15px;
+            opacity:1;
+        }
+
+        .ife .nav {
+            height:56px;
+            border-bottom:1px solid #dddddd;
+        }
+
+        .ife .nav .navWrap {
+            height:41px;
+            width:960px;
+            margin:0 auto;
+            padding-top:15px;
+        }
+
+        .ife .nav .navWrap li {
+            float:left;
+            padding:0 20px;
+            line-height:40px;
+            border:1px solid #dddddd;
+            border-top-left-radius:20px;
+            border-top-right-radius: 20px;
+            display:inline-block;
+            background-color:#eeeeee;
+        }
+
+        .ife .nav li:nth-child(1) {
+            box-sizing:border-box;
+            background-color:transparent;
+        }
+
+        .ife .content {
+            height:330px;
+            clear:both;
+            width:960px;
+            margin:0 auto;
+        }
+
+        .ife .content article div{
+            box-sizing:border-box;
+            margin-top:10px;
+            padding:40px 0;
+            border:1px solid #dddddd;
+            text-align:center;
+            display:inline-block;
+        }
+
+        .ife .content .box1 {
+            width:32%;
+            float:left;
+            margin-right:1%;
+        }
+
+        .ife .content .box2 {
+            width:34%;
+            float:right;
+        }
+
+        .ife .content .box3 {
+            width:24%;
+            float:left;
+            margin-right:1%;
+        }
+
+        .ife .content .box4 {
+            width:25%;
+            float:right;
+        }
+
+        /* flex 布局*/
+/*        .ife .content article div{
+            margin-top:10px;
+            padding:40px 0;
+            border:1px solid #dddddd;
+            text-align:center;
+        }
+
+        .ife .content .flex{
+            display:flex;
+            justify-content: space-between;
+        }
+
+        .ife .content .part1 div{
+            width:32%;
+        }
+
+        .ife .content .part2 div{
+            width:24%;
+        }
+
+        .ife .content .part3 div{
+            width:32%;
+        }
+
+*/
+        .ife .footer {
+            margin-top:18px;
+            clear:both;
+            height:40px;
+            color:#ffffff;
+            background-color:#666666;
+            text-align:center;
+        }
+
+        .ife .footer footer {
+            height:40px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="ife">
+        <div class="header">
+            <header>
+                <div class="logo">Logo</div>
+                <nav>
+                    <a href="#">Github</a>
+                    <a href="#">Register</a>
+                    <a href="#">Login</a>
+                </nav>
+            </header>
+        </div>
+        <div class="banner">
+            <section>
+                <ol>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ol>
+            </section>
+        </div>
+        <div class="nav">
+            <div class="navWrap">
+                <ul>
+                    <li>HOME</li>
+                    <li>PROFILE</li>
+                    <li>ABOUT</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <article class="part1 flex">
+                <div class="box1">This is content 1</div>
+                <div class="box1">MaybeContent2</div>
+                <div class="box2">Content 3</div>
+            </article>
+            <article class="part2 flex">
+                <div class="box3">Content 4</div>
+                <div class="box3">Content 5</div>
+                <div class="box3">Content 6</div>
+                <div class="box4">Content 7</div>
+            </article>
+            <article class="part3 flex">
+                <div class="box1">Content 8</div>
+                <div class="box1">Content 9</div>
+                <div class="box2">Content 10</div>
+            </article>
+        </div>
+        <div class="footer">
+            <footer>
+                &copy; 2018 ife.baidu.com
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

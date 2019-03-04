@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div>
+        <span>1、当前时间为：</span>
+        <span class="timeFirst"></span>
+    </div>
+
+    <div>
+        <span>2、当前时间为：</span>
+        <span class="timeSecond"></span>
+    </div>
+
+
+<script type="text/javascript">
+    var timeFirst = document.getElementsByClassName("timeFirst")[0];
+    var timeSecond = document.getElementsByClassName("timeSecond")[0];
+
+    var date = new Date();
+
+    function addZero(num) {
+        if(num < 10) {
+            return "0"+num;
+        }else {
+            return num;
+        }
+    }
+
+    function getYearMonthDay() {
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+
+        year = addZero(year);
+        month = addZero(month);
+        day = addZero(day);
+
+        var yearMonthDay = year + "年" + month + "月" + day + "日";
+        return yearMonthDay;
+    }
+
+    function getHourMinuteSecond() {
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+
+        hour = addZero(hour);
+        minute = addZero(minute);
+        second = addZero(second);
+
+        var HourMinuteSecond = hour + ":" + minute + ":" + second;
+        return HourMinuteSecond;
+
+    }
+
+    // 判断当天是周几
+    function getWeekDayOnChinese() {
+        var week = date.getDay();
+        var array = [];
+        array[1] = "星期一";
+        array[2] = "星期二";
+        array[3] = "星期三";
+        array[4] = "星期四";
+        array[5] = "星期五";
+        array[6] = "星期六";
+        array[0] = "星期天";
+        var weekName = array[week];
+        return weekName;
+    }
+
+    function getWeekDayOnEnglish() {
+        var week = date.getDay();
+        var array = [];
+        array[1] = "Monday";
+        array[2] = "Tuesday";
+        array[3] = "Wednesday";
+        array[4] = "Thursday";
+        array[5] = "Friday";
+        array[6] = "Saturday";
+        array[0] = "Sunday";
+        var weekName = array[week];
+        return weekName;
+    }
+
+    function getAfternoon(hour, minute, second ) {
+        var moment = "";
+        if(hour > 12) {
+            moment = hour - 12 + ":" + minute + ":" + second + " PM";
+        }else {
+            moment =  hour + ":" + minute + ":" + second;
+        }
+        return moment;
+    }
+
+    function getMoment() {
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+
+        hour = addZero(hour);
+        minute = addZero(minute);
+        second = addZero(second);
+
+        var moment = getAfternoon(hour,minute,second);
+        return moment;
+    }
+
+    function DisplayDateOnChinese() {
+        var yearMonthDay = getYearMonthDay();
+        var weekName = getWeekDayOnChinese();
+        var hourMinuteSecond = getHourMinuteSecond();
+        timeFirst.innerHTML = yearMonthDay + " " + weekName + " " + hourMinuteSecond;
+    }
+
+    DisplayDateOnChinese();
+
+
+    function DisplayDateOnEnglish() {
+        var yearMonthDay = getYearMonthDay();
+        var weekName = getWeekDayOnEnglish();
+        var hourMinuteSecond = getMoment();
+        timeSecond.innerHTML = yearMonthDay + " " + weekName + " " + hourMinuteSecond;
+    }
+
+    DisplayDateOnEnglish();
+
+</script>
+</body>
+</html>

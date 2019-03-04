@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Sprites</title>
+    <style type="text/css">
+        .div{
+            width: 500px;
+            height: 480px;
+            background-image: url(smile.jpg);
+            max-height: 500px;
+            max-width: 480px;
+            border: 1px solid black;
+            margin: auto;
+            background-position: 0 0;
+            background-repeat: repeat-y;
+        }
+        .button{
+            margin: 40px auto;
+            border: 1px solid #000000;
+            background-color: lightgray;
+            text-align: center;
+            line-height: 50px;
+            height: 50px;
+            width: 100px;
+            max-width: 100px;
+            max-height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="div" id="div">
+
+</div>
+    <div class="button" id="button">开始播放</div>
+
+
+</body>
+<script type="text/javascript">
+
+    var y = 0;
+    function getSmile() {
+      var photo = document.getElementById("div");
+      y += -480;
+      photo.style.backgroundPosition = "0" + y +"px";
+    }
+
+    function setIntervalSmile() {
+      setInterval(getSmile,200);
+    }
+
+    var button = document.getElementById("button");
+    button.onclick = function() {
+      setIntervalSmile();
+    }
+
+
+
+
+
+
+
+  /*var y = 0;
+  function bgPosition(){
+    var div = document.getElementById('div');
+    y += -480;
+    div.style.backgroundPosition ="0px " + y + "px";
+  }
+  function startBtn(){
+    setInterval('bgPosition()',200);
+  }
+
+  var start = document.getElementById("button");
+  start.onclick = function(){
+        startBtn();
+    }*/
+
+
+
+</script>
+</html>

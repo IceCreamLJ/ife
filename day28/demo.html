@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>邮箱提示</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        input {
+            border: 1px solid #ccc;
+            height: 25px;
+            outline: none;
+            width: 300px;
+        }
+
+        ul {
+            list-style: none;
+            position: absolute;
+            top: 125px;
+            left: 100px;
+        }
+
+        .wrapper {
+            margin: 100px;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            border-top: none;
+            width: 300px;
+            height: 25px;
+            line-height: 25px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #ffc0cb;
+        }
+
+        li.choose {
+            background-color: #269bf2;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <input id="email-input" type="text">
+        <ul id="email-sug-wrapper" class="email-sug">
+        </ul>
+    </div>
+    <script type="text/javascript">
+        // var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+        //
+        // var ul = document.getElementById("email-sug-wrapper");
+        // var emailInput = document.getElementById("email-input");
+        // emailInput.oninput = function(){
+        //     RemovePreviousChoose();
+        //     var value = emailInput.value;
+        //     if(value){
+        //         for(var i = 0; i < postfixList.length; i ++ ){
+        //             var liNode = document.createElement("li");
+        //             var liText = document.createTextNode(value+postfixList[i]);
+        //             liNode.appendChild(liText);
+        //             ul.appendChild(liNode);
+        //         }
+        //     }
+        // };
+        //
+        function RemovePreviousChoose(){
+            var total = document.getElementsByTagName("li");
+            var ul = document.getElementById("email-sug-wrapper");
+            for(var i = total.length - 1; i>=0; i--){
+                ul.removeChild(total[i]);
+            }
+        }
+
+        var postfixList = ['@163.com', '@gmail.com', '@126.com', '@qq.com', '@263.net'];
+
+        var emailInput = document.getElementById("email-input");
+         emailInput.focus();
+         emailInput.oninput = function(){
+             RemovePreviousChoose();
+             showOrNot();
+         };
+
+         emailInput.onkeyup = function(e){
+             var keyCode = e.keyCode;
+             var pointer;
+             var liList = document.getElementsByTagName("li");
+             if (keyCode == "38"){
+                 for(var i = 0; i < liList.length; i++){
+                     if("choose" == liList[i].className){
+                         liList[i].className = "";
+                         pointer = i - 1;
+                     }
+                     if(i == 0){
+                        pointer = liList.length - 1;
+                     }
+                 }
+                 liList[pointer].className = "choose";
+             } else if(keyCode == "40") {
+                 for(var i = 0; i < liList.length; i++){
+                     if("choose" == liList[i].className){
+                         liList[i].className = "";
+                         pointer = i + 1;
+                     }
+                     if(i == liList.length){
+                         pointer = 0;
+                     }
+                 }
+                 liList[pointer].className = "choose";
+             } else if(keyCode == "13"){
+                 for(var i = 0; i < liList.length; i++){
+                     if("choose" == liList[i].className){
+                         emailInput.value = liList[i].innerHTML;
+                         RemovePreviousChoose();
+                     }
+                 }
+             } else if (keyCode == "27"){
+                 emailInput.select();
+             }
+         };
+
+        function getInputContent(){
+            var emailInput = document.getElementById("email-input");
+            var value = emailInput.value;
+            var node = document.createElement("div");
+            node.innerText = value;
+            value = node.innerHTML;
+            node = null;
+            String.prototype.trim = function(){
+                return this.replace(/\s*/g,"");
+            };
+            return value.trim();
+
+        }
+
+        function createList(postfixList){
+            var result = getInputContent();
+            var index = result.indexOf("@");
+            var list = [];
+            if(index != -1){
+                var postFix = result.slice(index+1, result.length);
+                result = result.slice(0,index);
+                for(var i = 0; i < postfixList.length; i ++){
+                    if(postfixList[i].indexOf(postFix)!=-1){
+                        list.push(result+postfixList[i])
+                    }
+                }
+            } else {
+                for(var i = 0; i < postfixList.length; i ++ ){
+                    list.push(result+postfixList[i]);
+                }
+            }
+            return list;
+        }
+
+        function appendElement(){
+            var list = createList(postfixList);
+            var ul = document.getElementById("email-sug-wrapper");
+            for(var i = 0; i < list.length; i ++ ){
+                var liNode = document.createElement("li");
+                var liText = document.createTextNode(list[i]);
+                liNode.appendChild(liText);
+                ul.appendChild(liNode);
+                if(i == 0){
+                    liNode.className = "choose";
+                }
+           }
+        }
+
+        function showOrNot(){
+            var result = getInputContent();
+            if(result){
+                appendElement();
+            }
+        }
+
+        var emailUl = document.getElementById("email-sug-wrapper");
+        emailUl.onclick = function(e){
+            var inputLine = document.getElementById("email-input");
+            var choose = e.target.innerHTML;
+            var output = "";
+            output = choose.replace(/&amp;/g,"&");
+            output = output.replace(/&lt;/g,"<");
+            output = output.replace(/&gt;/g,">");
+            output = output.replace(/&nbsp;/g," ");
+            output = output.replace(/&#39;/g,"\'");
+            output = output.replace(/&quot;/g,"\"");
+            inputLine.value = output;
+            RemovePreviousChoose();
+            emailInput.focus();
+        }
+
+        // emailInput.onkeypress = function(){
+        //     console.log("onkeypress");
+        // };
+        //
+        // emailInput.onkeydown = function(){
+        //     console.log("onkeydown");
+        // };
+
+
+    </script>
+</body>
+</html>

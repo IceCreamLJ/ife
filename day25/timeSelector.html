@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <select id="year-select">
+
+    </select>
+
+    <select id="month-select">
+
+    </select>
+
+    <select id="day-select">
+
+    </select>
+
+    <select id="hour-select">
+
+    </select>
+
+    <select id="minute-select">
+
+    </select>
+
+    <select id="second-select">
+
+    </select>
+    <div>
+        <p id="result-wrapper"></p>
+    </div>
+
+<script type="text/javascript">
+
+    var year = document.getElementById("year-select");
+    var month = document.getElementById("month-select");
+    var day = document.getElementById("day-select");
+    var hour = document.getElementById("hour-select");
+    var minute = document.getElementById("minute-select");
+    var second = document.getElementById("second-select");
+    var result = document.getElementById("result-wrapper")
+
+    var yearDate = '2000';
+    var monthDate = '1';
+    var dayDate = '1';
+    var hourDate = '00';
+    var minuteDate = '00';
+    var secondDate = '00';
+
+    // 获取填充option字段
+    function fillOption(i,node){
+        var optionNode = document.createElement("option");
+        var text = document.createTextNode(i);
+        optionNode.appendChild(text);
+        optionNode.setAttribute("value",i);
+        node.appendChild(optionNode);
+    }
+
+    function fillDetailOption(i,node){
+        var optionNode = document.createElement("option");
+        var text = "";
+        if(i<10){
+            text = document.createTextNode("0"+i);
+        }else {
+            text = document.createTextNode(i);
+        }
+        optionNode.setAttribute("value",i);
+        optionNode.appendChild(text);
+        node.appendChild(optionNode);
+    }
+
+    // 获取年份
+    function getYearChoose() {
+        for(var i = 2000; i<2100 ;i++){
+            fillOption(i,year);
+        }
+    }
+
+    // 获取月份
+    function getMonthChoose() {
+        for(var i = 1; i<13 ;i++){
+            fillOption(i,month);
+        }
+    }
+
+    // 获取天数
+    function getDayChoose() {
+        for(var i = 1; i<31 ;i++){
+            fillOption(i,day);
+        }
+    }
+
+    // 获取小时
+    function getHourChoose() {
+        for(var i = 0; i<24; i++) {
+            fillDetailOption(i,hour);
+        }
+    }
+
+    // 获取分钟
+    function getMinuteChoose() {
+        for(var i = 0; i<60; i++){
+            fillDetailOption(i,minute);
+        }
+    }
+
+    function getSecondChoose() {
+        for(var i = 0; i<60; i++){
+            fillDetailOption(i,second);
+        }
+    }
+
+
+    // 获取天数
+    function getDate(year,month) {
+        var dayCount;
+        switch(month){
+            case '1':
+            case '3':
+            case '5':
+            case '7':
+            case '8':
+            case '10':
+            case '12':
+                dayCount = '31';
+                break;
+            case '4':
+            case '6':
+            case '9':
+            case '11':
+                dayCount = '30';
+                break;
+            case '2':
+                dayCount = '28';
+                break;
+            default:
+                break;
+        }
+        if(month == 2 && (year % 4 ==0 || (year % 100 !=0 && year % 4 ==0))){
+            dayCount = Number(dayCount) + 1;
+        }
+        return dayCount;
+    }
+
+
+    // 移除已有选项
+    function removeChoose(id) {
+        var select = document.getElementById(id);
+        var chooses = select.getElementsByTagName("option");
+        for(var i = chooses.length-1; i>0 ;i--){
+            select.removeChild(chooses[i]);
+        }
+    }
+
+
+    function changeDayByYearOrMonth() {
+        removeChoose("day-select");
+        var dayCount = getDate(yearDate,monthDate);
+        for(var i = 1; i<= dayCount; i++) {
+            fillOption(i,day);
+        }
+    }
+
+    // 改变年份触发事件
+    year.onchange = function(e) {
+        yearDate = e.target.value;
+        changeDayByYearOrMonth();
+        showDistant();
+    };
+
+    // 改变月份触发事件
+    month.onchange = function(e) {
+        monthDate = e.target.value;
+        changeDayByYearOrMonth();
+        showDistant();
+    };
+
+    // 改变天数触发事件
+    day.onchange = function(e) {
+        dayDate = e.target.value;
+        showDistant();
+    };
+
+    // 改变小时触发事件
+    hour.onchange = function(e) {
+        hourDate = e.target.value;
+        showDistant();
+    };
+
+    minute.onchange = function(e) {
+        minuteDate = e.target.value;
+        showDistant();
+    };
+
+    // 改变分钟触发事件
+    second.onchange = function(e) {
+        secondDate = e.target.value;
+        showDistant();
+    };
+
+    function getWeekDayOnChinese(date) {
+        var week = date.getDay();
+        var array = [];
+        array[1] = "星期一";
+        array[2] = "星期二";
+        array[3] = "星期三";
+        array[4] = "星期四";
+        array[5] = "星期五";
+        array[6] = "星期六";
+        array[0] = "星期天";
+        var weekName = array[week];
+        return weekName;
+    }
+
+    function showDistant() {
+        var str = yearDate + "/" + monthDate + "/" + dayDate + " " + hourDate + ":" + minuteDate + ":" + hourDate;
+        var endTime = new Date(str);
+        var end = endTime.getTime();
+        var weekDate = getWeekDayOnChinese(endTime);
+        var startTime = new Date();
+        var start = startTime.getTime();
+        var range = end - start;
+        var rangeDesc = "";
+        if(range > 0){
+            rangeDesc = " 还有 ";
+        }else{
+            rangeDesc = " 已经过去 ";
+        }
+        range = Math.abs(range);
+        var distantDay = Math.floor(range/1000/60/60/24);
+        var distantHour = Math.floor(range/1000/60/60%24);
+        var distantMinute = Math.floor(range/1000/60%60);
+        var distantSecond = Math.floor(range/1000%60);
+        var display = "现在距离 " + yearDate + "年" + monthDate + "月" + dayDate + "日" + hourDate + ":" +
+            minuteDate + ":" + secondDate + weekDate + rangeDesc + distantDay + "天" + distantHour + "小时" +
+             distantMinute + "分" + distantSecond + "秒"
+        result.innerHTML = display;
+    }
+
+
+    getYearChoose();
+    getMonthChoose();
+    getDayChoose();
+    getHourChoose();
+    getMinuteChoose();
+    getSecondChoose();
+    showDistant();
+
+</script>
+</body>
+</html>

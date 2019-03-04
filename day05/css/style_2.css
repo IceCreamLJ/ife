@@ -1,0 +1,18 @@
+body{
+    min-width:680px;
+}
+.resume{
+    float:left;
+    width:20%;
+    height:850px;
+    background:cornflowerblue;
+}
+h1{
+    margin:30%;
+    color:#fff;
+}
+
+.other{
+    float:right;
+    width:77%;
+}

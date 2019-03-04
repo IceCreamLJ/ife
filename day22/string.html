@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day22 String</title>
+</head>
+<body>
+<div>
+    <label>String A:
+        <input id="radio-a" type="radio" checked="true" name="str-obj" value="a">
+    </label>
+    <textarea id="str-a"></textarea>
+    <label>String B:
+        <input id="radio-b" type="radio" name="str-obj" value="b">
+    </label>
+    <textarea id="str-b"></textarea>
+    <label>Num A：<input id="num-a" type="number" value="0"></label>
+    <label>Num B：<input id="num-b" type="number" value="1"></label>
+</div>
+<div>
+    <button>获取当前选中输入的内容长度</button>
+    <button>当前选中输入中的第3个字符</button>
+    <button>把两个输入框的文字连接在一起输出</button>
+    <button>输入B中的内容，在输入A的内容中第一次出现的位置</button>
+    <button>输入A中的内容，在输入B的内容中最后一次出现的位置</button>
+    <button>使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+    <button>当前选中输入框的行数</button>
+    <button>使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+    <button>把所选输入框中的内容全部转为大写</button>
+    <button>把所选输入框中的内容全部转为小写</button>
+    <button>把所选输入框中内容的半角空格全部去除</button>
+    <button>把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+</div>
+<p id="result"></p>
+</body>
+<script type="text/javascript">
+    var result = document.getElementById("result");
+
+    function chooseText(){
+        var text;
+        // var inputLines = document.getElementsByName("math-obj");
+        var inputLines = document.querySelectorAll("input[type='radio']");
+        var textA = document.getElementById("str-a");
+        var textB = document.getElementById("str-b");
+        for(var i = 0; i < inputLines.length; i ++){
+            if(inputLines[i].checked) {
+                switch (i) {
+                    case 0:
+                        text = textA.value;
+                        break;
+                    case 1:
+                        text = textB.value;
+                        break;
+                }
+            }
+        }
+        return text;
+    }
+
+    document.getElementsByTagName("button")[0].onclick = function(){
+        var text = chooseText();
+        result.innerHTML = text.length;
+    };
+
+    document.getElementsByTagName("button")[1].onclick = function(){
+        var text = chooseText();
+        result.innerHTML = text[2];
+    };
+
+    document.getElementsByTagName("button")[2].onclick = function(){
+        var textA = document.getElementById("str-a").value;
+        var textB = document.getElementById("str-b").value;
+        var total = textA.concat(textB);
+        result.innerHTML = total;
+    };
+
+    document.getElementsByTagName("button")[3].onclick = function(){
+        var textA = document.getElementById("str-a").value;
+        var textB = document.getElementById("str-b").value;
+        var firstDisplay = textA.indexOf(textB);
+        var number;
+        if(firstDisplay == -1){
+            number = firstDisplay;
+        }else{
+            number = firstDisplay +1;
+        }
+        result.innerHTML = number;
+    };
+
+    document.getElementsByTagName("button")[4].onclick = function(){
+        var textA = document.getElementById("str-a").value;
+        var textB = document.getElementById("str-b").value;
+        var lastDisplay = textB.lastIndexOf(textA);
+        var number;
+        if(lastDisplay == -1){
+            number = lastDisplay;
+        }else{
+            number = lastDisplay + 1;
+        }
+        result.innerHTML = number;
+    };
+
+    document.getElementsByTagName("button")[5].onclick = function(){
+        var text = chooseText();
+        var numA = document.getElementById("num-a").value;
+        var numB = document.getElementById("num-b").value;
+        var array = [];
+        array.push(text);
+        var sliceText = array.slice(numA,numB);
+        result.innerHTML = sliceText;
+    };
+
+
+    document.getElementsByTagName("button")[6].onclick = function(){
+        // var text = chooseText();
+        var textA = document.getElementById("str-a");
+        var textB = textA.createTextRange().getClientRects();
+        console.log(textB);
+    };
+
+    document.getElementsByTagName("button")[7].onclick = function(){
+        var text = chooseText();
+        var numA = document.getElementById("num-a").value;
+        var numB = document.getElementById("num-b").value;
+        var subText = text.substr(numA,numB);
+        result.innerHTML = subText;
+    };
+
+    document.getElementsByTagName("button")[8].onclick = function(){
+        var text = chooseText();
+        var upperText = text.toUpperCase();
+        result.innerHTML = upperText;
+    };
+
+    document.getElementsByTagName("button")[9].onclick = function(){
+        var text = chooseText();
+        var lowerText = text.toLowerCase();
+        result.innerHTML = lowerText;
+    };
+
+    document.getElementsByTagName("button")[10].onclick = function(){
+        var text = chooseText();
+        var splitText = text.replace(/\s/g,"");
+        result.innerHTML = splitText;
+    };
+
+    document.getElementsByTagName("button")[11].onclick = function(){
+        var textChoose, textOther;
+        // var inputLines = document.getElementsByName("math-obj");
+        var inputLines = document.querySelectorAll("input[type='radio']");
+        var textA = document.getElementById("str-a");
+        var textB = document.getElementById("str-b");
+        for(var i = 0; i < inputLines.length; i ++){
+            if(inputLines[i].checked) {
+                switch (i) {
+                    case 0:
+                        textChoose = textA.value;
+                        textOther = textB.value;
+                        break;
+                    case 1:
+                        textChoose = textB.value;
+                        textOther = textB.value;
+                        break;
+                }
+            }
+        }
+        var replaceText = textChoose.replace(/\a/g,textOther);
+        result.innerHTML = replaceText;
+    }
+
+
+</script>
+</html>
