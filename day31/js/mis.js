@@ -121,6 +121,7 @@
                     pointerAll.checked = false;
                 }
             }
+
             changeTable();
         }
     }
@@ -140,7 +141,6 @@
             }else if(showRegion[i].checked){
                 // 获取 checkbox的文本内容
                 regionList.push(showRegion[i].nextSibling.nodeValue);
-                console.log(showRegion[i].nextSibling.nodeType)
             }
         }
         for(var i = 0; i < showProduct.length; i++){
@@ -206,9 +206,7 @@
         }
 
         // 合并同类
-        if( regionList.indexOf("")!=-1){
-            rowSpan = '3';
-        }else if(regionList.length == 1){
+       if(regionList.length == 1 && regionList.indexOf("")==-1){
             if(productList.length == 1){
                 rowSpan = '1';
             }else if (productList.length == 1){
@@ -216,12 +214,14 @@
             }else {
                 rowSpan = '3';
             }
-        }else{
+        }else if(regionList.length == 2){
             if(productList.length == 1 || productList.length == 2){
                 rowSpan = '2';
             } else {
                 rowSpan = '3';
             }
+        }else {
+            rowSpan = '3';
         }
 
         addTable(resultList, firstDisplay, rowSpan);
